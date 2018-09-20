@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".TabActivity">
+    <item android:id="@+id/action_connect"
+        android:orderInCategory="3"
+        android:title="Connect"
+        android:icon="@drawable/ic_connected"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_clear"
+        android:orderInCategory="4"
+        android:title="Clear"
+        android:icon="@drawable/ic_clear"
+        app:showAsAction="never"></item>
+    <item
+        android:id="@+id/action_music"
+        android:orderInCategory="5"
+        android:title="Music"
+        android:icon="@drawable/ic_library_music"
+        app:showAsAction="always"/>
+</menu>
