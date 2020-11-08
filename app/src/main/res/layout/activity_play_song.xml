@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".PlaySongActivity">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -31,7 +32,7 @@
         android:scrollbarFadeDuration="50000"
         android:scrollbarSize="8dp"
         android:scrollIndicators="top|bottom"
-        android:scrollbarThumbVertical="@color/colorRed"
+        android:scrollbarThumbVertical="@color/colorPrimary"
         tools:listitem="@layout/song_item_layout">
     </android.support.v7.widget.RecyclerView>
     <ProgressBar
@@ -40,7 +41,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
         android:visibility="gone"
-        android:indeterminateTint="@color/colorWhite"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>

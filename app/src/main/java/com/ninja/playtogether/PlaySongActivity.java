@@ -54,18 +54,17 @@ public class PlaySongActivity extends AppCompatActivity {
         adapter = new SongsAdapter(this, songs, new SongsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(final Song item) {
-                new AlertDialog.Builder(PlaySongActivity.this)
-                        .setTitle(Html.fromHtml("<font color='#ff3c00'>Confirm</font>"))
-                        .setMessage("Do you want to send song?")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton(Html.fromHtml("<font color='#ff3c00'>Yes</font>"), new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(PlaySongActivity.this, R.style.AlertDialogTheme)
+                        .setTitle("Transfer Song")
+                        .setMessage(item.title)
+                        .setPositiveButton("Send", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 Intent intent = new Intent();
                                 intent.putExtra("song", item);
                                 setResult(Activity.RESULT_OK, intent);
                                 finish();
                             }})
-                        .setNegativeButton(Html.fromHtml("<font color='#ff3c00'>No</font>"), null).show();
+                        .setNegativeButton("Cancel", null).show();
 
             }
         }, new SongsAdapter.OnItemClickListener() {

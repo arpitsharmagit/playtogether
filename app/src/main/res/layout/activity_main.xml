@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
     tools:context=".MainActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -11,8 +12,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorBlack">
+            android:layout_height="?attr/actionBarSize">
             <agency.tango.android.avatarview.views.AvatarView
                 android:id="@+id/profile_pic"
                 android:layout_width="40dp"
@@ -35,7 +35,8 @@
         android:id="@+id/messageRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize" >
+        android:layout_marginTop="?attr/actionBarSize"
+        tools:listitem="@layout/user_item_layout">
     </android.support.v7.widget.RecyclerView>
 
     <ProgressBar
@@ -43,7 +44,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
-        android:indeterminateTint="@color/colorRed"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>

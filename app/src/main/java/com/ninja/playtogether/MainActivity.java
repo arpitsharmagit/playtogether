@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser==null) {
             Intent intent = new Intent(this, PhoneAuthActivity.class);
@@ -189,6 +190,9 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             appPreferences.put("SyncContact",true);
+                                            PlayApplication.contacts = UtilityFunctions.getContactList();
+                                            loadUsers();
+                                            syncContacts();
                                         }
                                     });
                                     super.onChange(selfChange);
@@ -199,8 +203,10 @@ public class MainActivity extends AppCompatActivity {
                     if(!musicDir.exists()){
                         musicDir.mkdir();
                     }
-                    if(PlayApplication.contacts==null) {
+                    if(PlayApplication.contacts == null){
                         PlayApplication.contacts = UtilityFunctions.getContactList();
+                    }
+                    if(PlayApplication.contacts != null && appPreferences.getBoolean("SyncContact",false)) {
                         loadUsers();
                         syncContacts();
                     }
@@ -216,10 +222,6 @@ public class MainActivity extends AppCompatActivity {
                 token.continuePermissionRequest();
             }
         }).check();
-
-
-
-
     }
 
     private void loadUsers(){
@@ -278,8 +280,8 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
-    private void syncContacts(){
-        if(appPreferences.getBoolean("SyncContact",false)) {
+    private void syncContacts() {
+        if(PlayApplication.self != null && appPreferences.getBoolean("SyncContact",false)) {
             //fire sync contact job
             new AsyncJob.AsyncJobBuilder<Boolean>()
                     .doInBackground(new AsyncJob.AsyncAction<Boolean>() {
@@ -317,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_sign_out) {
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(this, R.style.AlertDialogTheme)
                     .setTitle("Sign Out?")
                     .setMessage("Are you sure you want to Sign Out?")
                     .setNegativeButton(getString(R.string.no), null)

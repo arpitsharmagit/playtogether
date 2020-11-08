@@ -438,15 +438,19 @@ public class PlayMusicService
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-
-        mStateBuilder.setState(PlaybackStateCompat.STATE_NONE, PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN, 0);
+        player.seekTo(0);
+        mStateBuilder
+                .setState(PlaybackStateCompat.STATE_PAUSED, player.getCurrentPosition(), 0)
+                .setActions(PlaybackStateCompat.ACTION_PLAY_PAUSE | PlaybackStateCompat.ACTION_PLAY);
         mMediaSession.setPlaybackState(mStateBuilder.build());
-        serviceState = ServiceState.Stopped;
 
-        isReady = false;
         if(notification!=null)
             notification.stopNotification();
-        destroySelf();
+
+        mMediaSession.setActive(false);
+        serviceState = ServiceState.Paused;
+
+        broadcastState(PlayMusicService.BROADCAST_EXTRA_PAUSED);
     }
 
     @Override
@@ -541,10 +545,14 @@ public class PlayMusicService
         mStateBuilder
                 .setState(PlaybackStateCompat.STATE_PAUSED, player.getCurrentPosition(), 0)
                 .setActions(PlaybackStateCompat.ACTION_PLAY_PAUSE | PlaybackStateCompat.ACTION_PLAY);
-        notification.notifyPaused(true);
+
+        if(notification!=null)
+            notification.stopNotification();
+        //notification.notifyPaused(true);
 
         mMediaSession.setActive(false);
         serviceState = ServiceState.Paused;
+        cancelNotification();
 
         broadcastState(PlayMusicService.BROADCAST_EXTRA_PAUSED);
     }
@@ -560,12 +568,14 @@ public class PlayMusicService
                 .setActions(PlaybackStateCompat.ACTION_PLAY_PAUSE | PlaybackStateCompat.ACTION_PAUSE);
         mMediaSession.setPlaybackState(mStateBuilder.build());
 
-        notification.notifyPaused(false);
+        if(notification!=null)
+            notification.notifyPaused(false);
 
         mMediaSession.setActive(true);
 
         broadcastState(PlayMusicService.BROADCAST_EXTRA_UNPAUSED);
     }
+
     public void togglePlayback() {
         if (serviceState == ServiceState.Paused)
             unpausePlayer();

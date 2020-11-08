@@ -46,7 +46,7 @@ public class DownloadNotification {
                 .setSmallIcon(R.drawable.ic_music_notify)
                 .setContentTitle(title)
                 .setContentText(text)
-                .setColor(ContextCompat.getColor(context, R.color.colorRed))
+                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
 

@@ -67,7 +67,8 @@
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
-
+        <receiver android:name="services.NotificationReceiver"
+            android:exported="false"/>
         <activity android:name=".PlaySongActivity" />
         <activity
             android:name=".ChatActivity"

@@ -16,6 +16,8 @@ import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity;
 import com.github.pwittchen.reactivenetwork.library.rx2.ConnectivityPredicate;
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 
+import net.grandcentrix.tray.AppPreferences;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,14 +41,18 @@ public class PlayApplication extends Application {
         public static PlayMusicService musicService = null;
         private static Intent musicServiceIntent = null;
         private static boolean activityVisible =true;
+        private AppPreferences appPreferences;
 
         public void onCreate() {
             super.onCreate();
+            appPreferences = new AppPreferences(this);
             PlayApplication.context = getApplicationContext();
             if (checkSelfPermission(Manifest.permission.READ_CONTACTS)
                     == PackageManager.PERMISSION_GRANTED) {
                 contacts = UtilityFunctions.getContactList();
-
+            }
+            else{
+                appPreferences.put("SyncContact",true);
             }
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {

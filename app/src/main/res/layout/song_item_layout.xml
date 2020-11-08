@@ -5,15 +5,14 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp">
     <RelativeLayout
+        android:background="@color/colorBackground"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:orientation="horizontal"
-        android:background="@color/colorRed">
+        android:orientation="horizontal">
         <ImageView
             android:id="@+id/song_background"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
-            android:background="@color/colorBlack"
             android:src="@drawable/ic_music_default" />
         <LinearLayout
             android:layout_toRightOf="@+id/song_background"
@@ -27,7 +26,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="17sp"
-                android:textColor="@color/colorBlack"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:text="Title"/>
@@ -41,7 +39,6 @@
                     android:text="Alone - Alan Wlker"
                     android:textAppearance="?attr/textAppearanceListItem"
                     android:textSize="13sp"
-                    android:textColor="@color/colorGrey"
                     android:scrollHorizontally="true"
                     android:singleLine="true"/>
                 <TextView
@@ -52,7 +49,6 @@
                     android:text="00:58"
                     android:textAppearance="?attr/textAppearanceListItem"
                     android:textSize="12sp"
-                    android:textColor="@color/colorBlack"
                     android:scrollHorizontally="true"
                     android:singleLine="true"/>
             </LinearLayout>

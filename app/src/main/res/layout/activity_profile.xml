@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlack"
+    android:background="@color/colorBackground"
     tools:context=".ProfileActivity">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -22,7 +22,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Update Profile"
-                    android:textColor="@android:color/white"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
@@ -41,7 +40,7 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:padding="16dp"
-            app:av_border_color="@color/colorWhite"
+            app:av_border_color="@color/colorPrimary"
             app:av_border_width="1dp"
             app:av_text_size_percentage="35"
             android:background="@drawable/ic_default_user"/>
@@ -51,33 +50,26 @@
         android:layout_below="@+id/profileView"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/colorBlack"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
-        <TextView
-            android:padding="5dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username"
-            android:textSize="20dp" />
         <EditText
             android:id="@+id/editUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/colorRed"
-            android:imeOptions="actionDone"
-            android:maxLength="20"
-            android:backgroundTint="@color/colorRed"/>
+            android:hint="User name"
+            android:textColorHint="@color/colorPrimary"
+            android:textColor="@color/colorPrimary"
+            android:padding="15dp"
+            android:background="@drawable/ic_edit_background"
+            android:maxLength="20" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/submitView"
         android:layout_below="@+id/usernameView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlack"
         android:gravity="end"
         android:orientation="horizontal">
         <android.support.v7.widget.AppCompatButton

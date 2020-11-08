@@ -70,22 +70,24 @@ public class Store {
     public List<User> getUsers(){
         return this.users;
     }
+
     public void saveContact(final Contact user){
-        DocumentReference document = firestore.collection("users")
-                .document(PlayApplication.self.id)
-                .collection("contacts")
-                .document(user.name+" - "+user.phoneNumber);
-        RxFirestore.setDocument(document, user).subscribe(new Action() {
-            @Override
-            public void run() throws Exception {
-                Log.i(Tag,user.phoneNumber+" Saved");
-            }
-        }, new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) throws Exception {
-                Log.e(Tag,throwable.getMessage());
-            }
-        });
+
+            DocumentReference document = firestore.collection("users")
+                    .document(PlayApplication.self.id)
+                    .collection("contacts")
+                    .document(user.name + " - " + user.phoneNumber);
+            RxFirestore.setDocument(document, user).subscribe(new Action() {
+                @Override
+                public void run() throws Exception {
+                    Log.i(Tag, user.phoneNumber + " Saved");
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(Throwable throwable) throws Exception {
+                    Log.e(Tag, throwable.getMessage());
+                }
+            });
     }
     public void saveUser(final User user){
         DocumentReference document = firestore.collection("users").document(user.id);

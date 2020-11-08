@@ -182,6 +182,9 @@ public class ChatActivity extends AppCompatActivity
         }
         setupChatView();
         attachListener();
+        if(chatNotification!=null){
+            chatNotification.cancel();
+        }
     }
 
     @Override
@@ -197,6 +200,7 @@ public class ChatActivity extends AppCompatActivity
         store =PlayApplication.store;
         chatNotification = new ChatNotification(this);
 
+        chatNotification.clearNotification(getIntent());
         mFormatBuilder = new StringBuilder();
         mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
 
@@ -324,7 +328,9 @@ public class ChatActivity extends AppCompatActivity
                 .document(PlayApplication.other.id)
                 .collection("messages")
                 .orderBy("timestamp", Query.Direction.ASCENDING);
-
+        if(chatListener!=null){
+            chatListener.remove();
+        }
         chatListener = query.addSnapshotListener(MetadataChanges.EXCLUDE, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -337,12 +343,11 @@ public class ChatActivity extends AppCompatActivity
                     if(change.getType() == DocumentChange.Type.ADDED && PlayApplication.isActivityVisible() ==false){
                         Message msg = change.getDocument().toObject(Message.class);
                         Log.w(Tag,"ShowNotification");
-                        chatNotification.notifyMessage(PlayApplication.other.username,msg.getText());
+                        chatNotification.messageStyleNotification(PlayApplication.other.username,msg.getText());
                     }
                 }
             }
         });
-
 
         FirestoreRecyclerOptions<Message> options = new FirestoreRecyclerOptions.Builder<Message>()
                 .setQuery(query, Message.class)
@@ -553,7 +558,7 @@ public class ChatActivity extends AppCompatActivity
     private void attachListener(){
         final DocumentReference docRef = firestore.collection("activities")
                 .document(PlayApplication.self.id);
-        listenerRegistration = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        listenerRegistration = docRef.addSnapshotListener(ChatActivity.this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,
                                 @Nullable FirebaseFirestoreException e) {
@@ -941,6 +946,7 @@ public class ChatActivity extends AppCompatActivity
             store.saveUser(PlayApplication.self);
         }
         PlayApplication.activityResumed();
+        chatNotification.cancel();
         super.onResume();
         adapter.startListening();
     }

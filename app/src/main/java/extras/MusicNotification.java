@@ -100,15 +100,15 @@ public class MusicNotification {
                 .setContentIntent(pendingIntent)
                 .setContentTitle(description.getTitle())
                 .setContentText(description.getSubtitle())
-                .setSubText(description.getDescription())
+                //.setSubText(description.getDescription())
                 .setOngoing(true)
                 .setTicker("Playing '" + description.getTitle() + "' from '" + description.getSubtitle() + "'")
                 .setShowWhen(false)
                 .setLargeIcon(description.getIconBitmap())
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setSmallIcon(R.drawable.ic_music_notify)
+                .setSmallIcon(R.drawable.ic_play)
                 .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
-                        .setShowActionsInCompactView(0 /* #1: pause button */)
+                        //setShowActionsInCompactView(0 /* #1: pause button */)
                         .setMediaSession(mService.getmMediaSession().getSessionToken()));
         setNotificationPlaybackState(notificationBuilder);
 
@@ -135,7 +135,7 @@ public class MusicNotification {
             builder.setOngoing(true);
         };
 
-        builder.addAction(icon, label, intent);
+//        builder.addAction(icon, label, intent);
     }
 
     private void setNotificationPlaybackState(NotificationCompat.Builder builder) {
@@ -178,8 +178,8 @@ public class MusicNotification {
             intent = getPendingIntent(PlayMusicService.ACTION_PLAY);
             notificationBuilder.setOngoing(true);
         };
-        notificationBuilder.mActions.clear();
-        notificationBuilder.addAction(icon, label, intent);
+        //notificationBuilder.mActions.clear();
+        //notificationBuilder.addAction(icon, label, intent);
 
 		notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
 
